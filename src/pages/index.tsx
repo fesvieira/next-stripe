@@ -1,5 +1,4 @@
 import { GlobalStyles } from "@/styles/global";
-import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
@@ -27,7 +26,7 @@ const Home: FC = () => {
   return (
     <div>
       <GlobalStyles />
-      <form action="/api/checkout_sessions" method="POST">
+      <form action="/api/checkout-sessions" method="POST">
         <section>
           <button type="submit" role="link">
             Checkout

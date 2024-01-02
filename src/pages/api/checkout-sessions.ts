@@ -1,4 +1,16 @@
+import { api } from "@/services/api";
+import { AppAxiosResponse } from "./NextCore";
+import Stripe from "stripe";
+import { Constants } from "@/constants/Constants";
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+export function checkoutProduct(id: string) {
+  return api.post<
+    string,
+    AppAxiosResponse<Stripe.Response<Stripe.Checkout.Session>, string>
+  >(Constants.url.nextApi.stripe.checkout);
+}
 
 export default async function handler(req: any, res: any) {
   if (req.method === "POST") {
