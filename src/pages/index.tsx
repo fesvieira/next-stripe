@@ -1,5 +1,9 @@
 import { GlobalStyles } from "@/styles/global";
 import { useEffect } from "react";
+import { Inter } from "next/font/google";
+import { FC } from "react";
+import { Container } from "@/styles/Home";
+import ItemCard from "@/components/ItemCard/ItemCard";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -7,7 +11,7 @@ import { useEffect } from "react";
 //   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 // );
 
-import { FC } from "react";
+const inter = Inter({ subsets: ["latin"] });
 
 const Home: FC = () => {
   useEffect(() => {
@@ -24,18 +28,11 @@ const Home: FC = () => {
     }
   }, []);
   return (
-    <div>
+    <Container className={inter.className}>
       <GlobalStyles />
-      <form action="/api/checkout-sessions" method="POST">
-        <section>
-          <button type="submit" role="link">
-            Checkout
-          </button>
-        </section>
-      </form>
-    </div>
+      <ItemCard />
+    </Container>
   );
 };
 
 export default Home;
-
