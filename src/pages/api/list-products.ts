@@ -16,7 +16,7 @@ export default async function handler(
   res: AppNextResponse<Stripe.Response<Stripe.ApiList<Stripe.Product>>, string>
 ) {
   return stripe.products
-    .list()
+    .list({ expand: ["data.default_price"] })
     .then((response) => {
       return res.status(200).send({ data: response });
     })

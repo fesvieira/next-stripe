@@ -11,3 +11,16 @@ export const Container = styled.div`
 
   background-color: #f4f4f4;
 `;
+
+export const ItemsGrid = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+`;

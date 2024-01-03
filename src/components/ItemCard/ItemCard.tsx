@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   CheckoutButton,
   Container,
@@ -9,10 +9,36 @@ import {
 } from "./styles";
 import { checkoutProduct } from "@/pages/api/checkout-sessions";
 import Router from "next/router";
+import Stripe from "stripe";
 
-const ItemCard: FC = () => {
+interface Props {
+  product: Stripe.Product;
+}
+
+const ItemCard: FC<Props> = ({ product }) => {
+  const [price, setPrice] = useState("-");
+
+  // Utility function to convert cents to dollars
+  const formatPrice = (cents: number) => {
+    const dollars = cents / 100;
+    return dollars.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2,
+    });
+  };
+
+  useEffect(() => {
+    try {
+      const price = product.default_price as Stripe.Price;
+      setPrice(formatPrice(price.unit_amount ?? 0));
+    } catch (err) {
+      console.log("error: undefined price");
+    }
+  }, [product]);
+
   const checkoutItem = async () => {
-    const response = (await checkoutProduct("1")).data;
+    const response = (await checkoutProduct(product.id)).data;
     if (response?.data?.url) {
       Router.replace(new URL(response?.data?.url));
     } else {
@@ -21,14 +47,12 @@ const ItemCard: FC = () => {
   };
   return (
     <Container>
-      <ItemImage src="/tijolo.png"></ItemImage>
+      <ItemImage src={`${product.images[0]}`}></ItemImage>
       <Row>
-        <Title>Tijolo</Title>
-        <Description>$ 0.99</Description>
+        <Title>{product.name ?? "--"}</Title>
+        <Description>{price}</Description>
       </Row>
-      <Description>
-        Unidade usada para a construção de muros e paredes
-      </Description>
+      <Description>{product.description}</Description>
       <CheckoutButton onClick={checkoutItem}>Checkout</CheckoutButton>
     </Container>
   );
