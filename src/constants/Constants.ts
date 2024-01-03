@@ -3,7 +3,8 @@ export const Constants = {
     nextApi: {
         baseUrl: "/api",
         stripe: {
-            checkout: "/checkout-sessions"
+            checkout: "/checkout-sessions",
+            listProducts: "/list-products"
         }
     },
   },
