@@ -8,10 +8,16 @@ import {
   Title,
 } from "./styles";
 import { checkoutProduct } from "@/pages/api/checkout-sessions";
-import Image from "next/image";
+import Router from "next/router";
+
 const ItemCard: FC = () => {
-  const checkoutItem = () => {
-    checkoutProduct("1");
+  const checkoutItem = async () => {
+    const response = (await checkoutProduct("1")).data;
+    if (response?.data?.url) {
+      Router.replace(new URL(response?.data?.url));
+    } else {
+      console.log(response.error);
+    }
   };
   return (
     <Container>
