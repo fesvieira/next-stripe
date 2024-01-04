@@ -5,11 +5,13 @@ export const Container = styled.div`
   flex-direction: column;
 
   width: 260px;
+  height: fit-content;
 
   gap: 1rem;
 
   border-radius: 2rem;
   background-color: white;
+  box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.17);
 `;
 
 export const Row = styled.div`

@@ -5,6 +5,8 @@ export const Container = styled.div`
 
   justify-content: center;
   align-items: center;
+  
+  padding: 2rem;
 
   height: 100vh;
   width: 100%;
@@ -18,8 +20,8 @@ export const ItemsGrid = styled.div`
   flex-wrap: wrap;
 
   gap: 1rem;
-  align-items: center;
-  justify-content: center;
+  align-items: top;
+
 
   width: 100%;
   height: 100%;
