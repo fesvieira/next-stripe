@@ -10,6 +10,10 @@ import {
 import { checkoutProduct } from "@/pages/api/checkout-sessions";
 import Router from "next/router";
 import Stripe from "stripe";
+import {
+  CheckoutSessionRequest,
+  PaymentMode,
+} from "@/models/api/CheckoutSessionRequest";
 
 interface Props {
   product: Stripe.Product;
@@ -38,11 +42,29 @@ const ItemCard: FC<Props> = ({ product }) => {
   }, [product]);
 
   const checkoutItem = async () => {
-    const response = (await checkoutProduct(product.id)).data;
-    if (response?.data?.url) {
-      Router.replace(new URL(response?.data?.url));
-    } else {
-      console.log(response.error);
+    try {
+      const stripePrice = product.default_price as Stripe.Price;
+      console.log(stripePrice.id);
+
+      const request: CheckoutSessionRequest = {
+        line_items: [
+          {
+            price: stripePrice.id,
+            quantity: 1,
+          },
+        ],
+        mode: PaymentMode.PAYMENT,
+      };
+
+      const response = (await checkoutProduct(request)).data;
+
+      if (response?.data?.url) {
+        Router.replace(new URL(response?.data?.url));
+      } else {
+        console.log(response.error);
+      }
+    } catch {
+      console.log("Unable to fetch product price");
     }
   };
   return (

@@ -3,27 +3,26 @@ import { AppAxiosResponse, AppNextRequest, AppNextResponse } from "./NextCore";
 import Stripe from "stripe";
 import { Constants } from "@/constants/Constants";
 import { stripe } from "@/services/stripe";
+import {
+  CheckoutSessionRequest,
+  PaymentMode,
+} from "@/models/api/CheckoutSessionRequest";
 
-export function checkoutProduct(id: string) {
+export function checkoutProduct(req: CheckoutSessionRequest) {
   return api.post<
-    string,
+    AppNextRequest<CheckoutSessionRequest>,
     AppAxiosResponse<Stripe.Response<Stripe.Checkout.Session>, string>
-  >(Constants.url.nextApi.stripe.checkout);
+  >(Constants.url.nextApi.stripe.checkout, req);
 }
 
 export default async function handler(
-  req: AppNextRequest<string>,
+  req: AppNextRequest<CheckoutSessionRequest>,
   res: AppNextResponse<Stripe.Response<Stripe.Checkout.Session>, string>
 ) {
   return stripe.checkout.sessions
     .create({
-      line_items: [
-        {
-          price: "price_1OU7mXLhAHiSTgcaVxuZA3Iq",
-          quantity: 1,
-        },
-      ],
-      mode: "payment",
+      line_items: req.body.line_items,
+      mode: req.body.mode,
       success_url: `${req.headers.origin}`,
       cancel_url: `${req.headers.origin}`,
     })
