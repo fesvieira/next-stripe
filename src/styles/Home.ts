@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
 
   justify-content: center;
-  align-items: center;
+  align-items: top;
   
   padding: 2rem;
 
@@ -20,9 +20,7 @@ export const ItemsGrid = styled.div`
   flex-wrap: wrap;
 
   gap: 1rem;
-  align-items: top;
-
 
   width: 100%;
-  height: 100%;
+  height: fit-content;
 `;

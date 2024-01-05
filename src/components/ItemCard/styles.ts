@@ -5,7 +5,6 @@ export const Container = styled.div`
   flex-direction: column;
 
   width: 260px;
-  height: fit-content;
 
   gap: 1rem;
 
@@ -26,8 +25,9 @@ export const Row = styled.div`
 
 export const ItemImage = styled.img`
   width: 260px;
-  max-height: 260px;
+  height: 260px;
   border-radius: 1rem 1rem 0rem 0rem;
+  box-shadow: 0px 0px 5.5px 0px rgba(0, 0, 0, 0.17);
 `;
 export const Title = styled.h3`
   font-size: large;
@@ -38,7 +38,9 @@ export const Title = styled.h3`
 export const Description = styled.p`
   font-size: 16px;
   font-weight: 400;
+  
   padding: 0 0.5rem;
+  margin: auto 0rem;
 `;
 
 export const CheckoutButton = styled.button`

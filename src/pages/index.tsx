@@ -2,7 +2,6 @@ import { GlobalStyles } from "@/styles/global";
 import { FC, useEffect, useState } from "react";
 import { Container, ItemsGrid } from "@/styles/Home";
 import ItemCard from "@/components/ItemCard/ItemCard";
-import { Inter } from "next/font/google";
 import { listProducts } from "./api/list-products";
 import Stripe from "stripe";
 

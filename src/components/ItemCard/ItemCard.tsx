@@ -70,11 +70,14 @@ const ItemCard: FC<Props> = ({ product }) => {
   return (
     <Container>
       <ItemImage src={`${product.images[0]}`}></ItemImage>
+
       <Row>
         <Title>{product.name ?? "--"}</Title>
         <Description>{price}</Description>
       </Row>
+
       <Description>{product.description}</Description>
+      
       <CheckoutButton onClick={checkoutItem}>Checkout</CheckoutButton>
     </Container>
   );
